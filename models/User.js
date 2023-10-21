@@ -20,12 +20,14 @@ const userSchema = new Schema(
         lowercase:true,
         match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, 'Valid email required'],
     },
+    //an array of thoughts this user has shared
     thoughts: [
         {
             type: Schema.Types.ObjectId,
             ref: 'Thought',
         },
     ],
+    //an array of friends this user has
     friends: [ 
         {
         type: Schema.Types.ObjectId,
