@@ -32,6 +32,13 @@ const thoughtSchema = new Schema(
             type:String,
             required:[true, 'username required'],
         },
+        //any reactions/replies to this thought
+        reactions:[
+            {
+                type:Schema.Types.ObjectId,
+                ref: 'reaction'
+            }
+        ]
     },
     {
         //if we added this, mongoose would add createdAt and updatedAt by default automatically whenever the doc is created or updated
@@ -45,6 +52,11 @@ const thoughtSchema = new Schema(
         id: false,
     }
 );
+
+//virtual to return the number of reactions on this thought
+thoughtSchema.virtual('reactionCount').get(function (){
+    return this.reactions.length;
+});
 
 
 // Initialize our THOUGHT model
