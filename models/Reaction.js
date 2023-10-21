@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 //dayjs for formatting dates
-const dayjs = require('dayjs');
+const {dayjsTools} = require('../utils');
 
 //function to format dates we will use in a getter
 function formatDate (date){
@@ -24,7 +24,7 @@ const readtionSchema = new Schema(
         createdAt: {
             Type:Date,
             default: Date.now,
-            get: formatDate,
+            get: dayjsTools.formatDate,
         },
     }
 );

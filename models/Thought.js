@@ -1,13 +1,8 @@
 const { Schema, model } = require('mongoose');
 //dayjs for formatting dates
-const dayjs = require('dayjs');
+const {dayjsTools} = require('../utils');
 //check the devlog env variable to see if we are logging extra things for dev purposes
 const devLog = process.env.DEVLOGGING === 'true' ? true : false;
-
-//function to format dates we will use in a getter
-function formatDate (date){
-    return dayjs(date).format('MM/DD/YYYY:hh:mm:ss:A');
-}
 
 // Schema to create Thought model
 const thoughtSchema = new Schema(
@@ -24,7 +19,7 @@ const thoughtSchema = new Schema(
         createdAt: {
             Type:Date,
             default: Date.now,
-            get: formatDate,
+            get: dayjsTools.formatDate,
             
         },
         //the user who created the thought
@@ -64,7 +59,7 @@ const Thought = model('thought', thoughtSchema);
 
 //devlogs for testing
 if (devLog) {
-    console.log(formatDate(Date.now));
+    console.log(dayjsTools.formatDate(Date.now));
 }
 
 module.exports = Thought;
