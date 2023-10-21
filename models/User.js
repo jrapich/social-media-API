@@ -4,18 +4,21 @@ const { Schema, model } = require('mongoose');
 //
 const userSchema = new Schema(
   {
+    //username will be required, unique, and always lowercase
     username: {
         type:String, 
-        required:true, 
+        required:[true, 'username required'], 
         unique:true,
         lowercase:true,
         trim:true,
     },
+    //email will be required, true, always lowercase, and will be validated against an email regex
     email: {
         type:String,
-        required:true,
+        required:[true, 'email required'],
         unique: true,
-        //add regex validator here, see docs
+        lowercase:true,
+        match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, 'Valid email required'],
     },
     thoughts: [
         {
