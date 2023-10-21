@@ -1,0 +1,21 @@
+{
+  "name": "social-media-api",
+  "version": "1.0.0",
+  "description": "simple social media backend api",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js",
+    "dev":  "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jrapich/social-media-API.git"
+  },
+  "author": "https://github.com/jrapich",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jrapich/social-media-API/issues"
+  },
+  "homepage": "https://github.com/jrapich/social-media-API#readme"
+}
