@@ -34,13 +34,13 @@ module.exports = {
     async deleteFriend(req,res){
         try {
             const oldFriend = await User.findOneAndUpdate(
-                { _id: req.params.userID },
-                { $pull: { friends: { _id: req.params.friendID } } },
-                { runValidators: true, new: true }
+                { friends: req.params.friendID },
+                { $pull: { friends: req.params.friendID }  },
+                { new: true }
             );
 
             if(!oldFriend){
-                return res.status(404).json({ message: 'No username with this id!' });
+                return res.status(404).json({ message: 'No friend with this id!' });
             }
             logFunction(oldFriend);
 
