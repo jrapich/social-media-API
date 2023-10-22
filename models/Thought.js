@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 //for adding reactions to our reactions array
 const Reaction = require('./Reaction');
 //dayjs for formatting dates
-const {dayjsTools} = require('../utils/dayjs');
+const dayjsTools = require('../utils/dayjs');
 //check the devlog env variable to see if we are logging extra things for dev purposes
 const devLog = process.env.DEVLOGGING === 'true' ? true : false;
 
