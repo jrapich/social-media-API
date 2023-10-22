@@ -6,4 +6,4 @@ const formatDate = function (date){
     return dayjs(date).format('MM/DD/YYYY:hh:mm:ss:A');
 }
 
-module.exports = formatDate;
+module.exports = {formatDate};
