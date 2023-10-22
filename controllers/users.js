@@ -56,6 +56,11 @@ const updateUser = async (req,res) => {
             { $set: req.body },
             { runValidators: true, new: true }
         );
+
+        if (!user) {
+            return res.status(404).json({ message: 'No user with that ID' });
+        }
+
         logFunction(user);
         res.json({user:user, message:`${user.username} updated.`});
     } catch (err) {
@@ -72,7 +77,8 @@ const deleteUser = async (req,res) =>{
           return res.status(404).json({ message: 'No user with that ID' });
         }
 
-        await Thought.deleteMany({_id: {$in: user.thoughts}});
+        const deleteThoughts = await Thought.deleteMany({_id: {$in: user.thoughts}});
+        logFunction(deleteThoughts);
         res.json({ message: 'User and associated thoughts deleted!' });
     } catch (err) {
         logFunction(err);
