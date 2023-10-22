@@ -9,7 +9,7 @@ const logFunction = (toast) => {
     return;
 }
 
-
+//return object of all users in db
 const getUsers = async (req,res) =>{
     try {
         const users = await User.find();
@@ -22,6 +22,7 @@ const getUsers = async (req,res) =>{
         res.status(500).json(err);
     }
 }
+//return a single user by id, as well as populate a list of their friends, if any
 const getSingleUser = async (req, res) => {
     try {
       const user = await User.findOne({ _id: req.params.id })
@@ -38,7 +39,8 @@ const getSingleUser = async (req, res) => {
       logFunction(err);  
       res.status(500).json(err);
     }
-  }
+}
+//add a single user to db
 const createUser = async (req, res) => {
     try {
         const user = await User.create(req.body);
@@ -50,6 +52,7 @@ const createUser = async (req, res) => {
         : res.status(500).json(err);
       }
 }
+//update an existing user
 const updateUser = async (req,res) => {
     try {
         const user = await User.findOneAndUpdate(
@@ -69,6 +72,7 @@ const updateUser = async (req,res) => {
         res.status(500).json(err);
     }
 }
+//delete a user from the db as well as any thoughts they have created
 const deleteUser = async (req,res) =>{
     try {
         const user = await User.findOneAndDelete({ _id: req.params.id });

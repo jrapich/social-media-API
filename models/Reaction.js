@@ -34,4 +34,6 @@ const reactionSchema = new Schema(
     }
 );
 
+//we are not creating a model in mongoose with this schema, as we are just importing this schema into the Thought model as a subdocument
+
 module.exports = reactionSchema;

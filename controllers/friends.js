@@ -10,6 +10,7 @@ const logFunction = (toast) => {
 }
 
 module.exports = {
+    //add a friend to an existing user's friend list
     async addFriend(req,res){
         try {
             const newFriend = await User.findOneAndUpdate(
@@ -29,6 +30,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    //remove a friend from an existing user's friends list
     async deleteFriend(req,res){
         try {
             const oldFriend = await User.findOneAndUpdate(

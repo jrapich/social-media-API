@@ -8,7 +8,7 @@ const logFunction = (toast) => {
     }
     return;
 }
-
+//return an object with all thoughts in the db
 const allThoughts =  async (req, res) => {
     try {
         const thoughts = await Thought.find();
@@ -21,6 +21,7 @@ const allThoughts =  async (req, res) => {
         res.status(500).json(err);
     }
 }
+//return a single thought in the db
 const singleThought = async (req, res) => {
     try {
       const thought = await Thought.findOne({ _id: req.params.id })
@@ -38,6 +39,7 @@ const singleThought = async (req, res) => {
       res.status(500).json(err);
     }
 }
+//create a thought, and store its id in the creating user's document
 const createThought = async (req, res) => {
     try {
         const isUser = await User.findOne({_id: req.body.userID});
@@ -60,6 +62,7 @@ const createThought = async (req, res) => {
         res.status(500).json(err);
     }
 }
+//update an existing thought
 const updateThought = async (req,res) => {
     try {
         const thought = await Thought.findOneAndUpdate(
@@ -79,6 +82,7 @@ const updateThought = async (req,res) => {
         res.status(500).json(err);
     }
 }
+//delete an existing thought and all of its reactions
 const deleteThought = async (req,res) =>{
     try {
 
@@ -105,6 +109,7 @@ const deleteThought = async (req,res) =>{
         res.status(500).json(err);
     }
 }
+//add a reaction to an existing thought
 const addReaction = async (req, res) =>{
     try {
         const thought = await Thought.findOneAndUpdate(
@@ -122,6 +127,7 @@ const addReaction = async (req, res) =>{
         res.status(500).json(e);
     }
 }
+//remove an existing reaction from an existing thought
 const deleteReaction = async (req,res) =>{
     try {
         const thought = await Thought.findOneAndUpdate(
@@ -136,4 +142,5 @@ const deleteReaction = async (req,res) =>{
         res.status(500).json(e);
     }
 }
+//export all of the things
 module.exports = {allThoughts, singleThought, createThought, updateThought, deleteThought, addReaction, deleteReaction};
