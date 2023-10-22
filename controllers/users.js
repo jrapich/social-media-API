@@ -1,2 +1,82 @@
+const {User, Thought} = require('../models');
+//devlogging variable for debugging purposes
+const devLog = process.env.DEVLOGGING === 'true' ? true : false;
+//function for dev logs to console
+const logFunction = (toast) => {
+    if(devLog) {
+        console.log(toast);
+    }
+    return;
+}
 
-module.exports = {getUsers, getSingleUser, createUser, updateUser, deleteUser};
+
+const getUsers = async (req,res) =>{
+    try {
+        const users = await User.find();
+
+        logFunction(users);
+
+        res.json(users);
+    } catch (err) {
+        logFunction(err);
+        res.status(500).json(err);
+    }
+}
+const getSingleUser = async (req, res) => {
+    try {
+      const user = await User.findOne({ _id: req.params.id })
+        .select('-__v');
+
+        logFunction(user);
+
+      if (!user) {
+        return res.status(404).json({ message: 'No user with that ID' });
+      }
+
+      res.json(user);
+    } catch (err) {
+        logFunction(err);  
+      res.status(500).json(err);
+    }
+  }
+const createUser = async (req, res) => {
+    try {
+        const user = await User.create(req.body);
+        logFunction(user);
+        res.json(user);
+      } catch (err) {
+        logFunction(err);
+        res.status(500).json(err);
+      }
+}
+const updateUser = async (req,res) => {
+    try {
+        const user = await User.findOneAndUpdate(
+            { _id: req.params.id },
+            { $set: req.body },
+            { runValidators: true, new: true }
+        );
+        logFunction(user);
+        res.json({user:user, message:`${user.username} updated.`});
+    } catch (err) {
+        logFunction(err);
+        res.status(500).json(err);
+    }
+}
+const deleteUser = async (req,res) =>{
+    try {
+        const user = await User.findOneAndDelete({ _id: req.params.id });
+        logFunction(user);
+
+        if (!user) {
+          return res.status(404).json({ message: 'No user with that ID' });
+        }
+
+        await Thought.deleteMany({_id: {$in: user.thoughts}});
+        res.json({ message: 'User and associated thoughts deleted!' });
+    } catch (err) {
+        logFunction(err);
+        res.status(500).json(err);
+    }
+}
+module.exports = {getUsers, getSingleUser, createUser, updateUser, deleteUser};     
