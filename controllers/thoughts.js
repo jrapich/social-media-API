@@ -1,0 +1,1 @@
+module.exports = {allThoughts, singleThought, createThought, updateThought, deleteThought, addReaction, deleteReaction};
