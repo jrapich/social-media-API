@@ -46,7 +46,8 @@ const createUser = async (req, res) => {
         res.json(user);
       } catch (err) {
         logFunction(err);
-        res.status(500).json(err);
+        (err.code === 11000) ? res.status(400).json({message:`username ${req.body.username} or email ${req.body.email} already exists, pick another`}) 
+        : res.status(500).json(err);
       }
 }
 const updateUser = async (req,res) => {
