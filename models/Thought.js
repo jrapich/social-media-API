@@ -1,4 +1,6 @@
 const { Schema, model } = require('mongoose');
+//for adding reactions to our reactions array
+const Reaction = require('./Reaction');
 //dayjs for formatting dates
 const {dayjsTools} = require('../utils');
 //check the devlog env variable to see if we are logging extra things for dev purposes
@@ -28,12 +30,7 @@ const thoughtSchema = new Schema(
             required:[true, 'username required'],
         },
         //any reactions/replies to this thought
-        reactions:[
-            {
-                type:Schema.Types.ObjectId,
-                ref: 'reaction'
-            }
-        ]
+        reactions:[Reaction],
     },
     {
         //if we added this, mongoose would add createdAt and updatedAt by default automatically whenever the doc is created or updated
