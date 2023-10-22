@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 //dayjs for formatting dates
-const {dayjsTools} = require('../utils');
+const dayjsTools = require('../utils/dayjs');
 
 const reactionSchema = new Schema(
     {
@@ -34,4 +34,4 @@ const reactionSchema = new Schema(
     }
 );
 
-module.exports = Reaction;
+module.exports = reactionSchema;
