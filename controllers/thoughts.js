@@ -73,7 +73,7 @@ const updateThought = async (req,res) => {
         }
 
         logFunction(thought);
-        res.json({thought:thought, message:`${thought.username} updated.`});
+        res.json({thought:thought, message:` thought updated by ${thought.username}.`});
     } catch (err) {
         logFunction(err);
         res.status(500).json(err);
@@ -81,6 +81,9 @@ const updateThought = async (req,res) => {
 }
 const deleteThought = async (req,res) =>{
     try {
+        const deleteReactions = await Thought.deleteMany({_id: {$in: thought.reactions}});
+        logFunction(deleteReactions);
+
         const thought = await Thought.findOneAndDelete({ _id: req.params.id });
         logFunction(thought);
 
@@ -94,8 +97,6 @@ const deleteThought = async (req,res) =>{
             { new: true }
         );
 
-        const deleteReactions = await Thought.deleteMany({_id: {$in: thought.reactions}});
-        logFunction(deleteReactions);
         res.json({ message: 'thought and associated reactions deleted!' });
     } catch (err) {
         logFunction(err);
