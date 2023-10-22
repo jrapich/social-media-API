@@ -2,15 +2,13 @@ const { Schema, model } = require('mongoose');
 //dayjs for formatting dates
 const {dayjsTools} = require('../utils');
 
-//function to format dates we will use in a getter
-function formatDate (date){
-    return dayjs(date).format('MM/DD/YYYY:hh:mm:ss:A');
-}
-
-const readtionSchema = new Schema(
+const reactionSchema = new Schema(
     {
         //unique id of the reaction
-        reactionID:mongoose.ObjectId,
+        reactionID:{
+            type: Schema.Types.ObjectId,
+            default: () => new Types.ObjectId(),
+        },  
         //reaction contents
         reactionBody:{
             type: String,
@@ -26,6 +24,12 @@ const readtionSchema = new Schema(
             default: Date.now,
             get: dayjsTools.formatDate,
         },
+    },
+    {
+        toJSON: {
+          getters: true,
+        },
+        id: false,
     }
 );
 
