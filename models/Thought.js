@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 //for adding reactions to our reactions array
 const Reaction = require('./Reaction');
 //dayjs for formatting dates
-const {dayjsTools} = require('../utils');
+const {dayjsTools} = require('../utils/dayjs');
 //check the devlog env variable to see if we are logging extra things for dev purposes
 const devLog = process.env.DEVLOGGING === 'true' ? true : false;
 
@@ -19,7 +19,7 @@ const thoughtSchema = new Schema(
         },
         //thought created timestamp. use dayJS to format with a getter method 
         createdAt: {
-            Type:Date,
+            type:Date,
             default: Date.now,
             get: dayjsTools.formatDate,
             
