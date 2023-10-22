@@ -40,9 +40,15 @@ const singleThought = async (req, res) => {
 }
 const createThought = async (req, res) => {
     try {
+        const isUser = await User.findOne({_id: req.body.userID});
+        //check to make sure the submitted user exists first before creating the thought
+        if(!isUser) {
+            return res.status(404).json({message:'No user by that id exists, thought discarded.'});
+        }
+
         const thought = await Thought.create(req.body);
         const user = await User.findOneAndUpdate(
-            { _id: req.body.userId },
+            { _id: req.body.userID },
             { $addToSet: { thoughts: thought._id } },
             { new: true }
         );
