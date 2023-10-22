@@ -1,7 +1,6 @@
 const { Schema, model } = require('mongoose');
 //dayjs for formatting dates
 const dayjsTools = require('../utils/dayjs');
-console.log(typeof(dayjsTools.formatDate));
 
 const reactionSchema = new Schema(
     {
