@@ -1,1 +1,0 @@
-//TODO: remove a user and also delete the thoughts they have created
