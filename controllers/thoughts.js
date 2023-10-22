@@ -136,7 +136,7 @@ const deleteReaction = async (req,res) =>{
             { runValidators: true, new: true }
         );
         !thought ? res.status(404).json({ message: 'No thought with this id!' })
-        : res.json(thought);
+        : res.json({message:"reaction deleted"});
     } catch (e) {
         logFunction(e);
         res.status(500).json(e);
